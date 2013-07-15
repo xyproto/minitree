@@ -11,3 +11,8 @@ Author: Alexander Rødseth <rodseth@gmail.com>
 Last updated: July 2013
 
 Requires Python 3
+
+Screenshot
+----------
+
+![Screenshot](lc.png "Screenshot")
