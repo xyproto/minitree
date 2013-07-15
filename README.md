@@ -1,9 +1,6 @@
 lc
 ==
 
-"Column-ls"
------------
-
 List the files in the directories in the current directory, formatted in columns
 
 * Version: 0.1
@@ -13,13 +10,11 @@ List the files in the directories in the current directory, formatted in columns
 
 Requires Python 3
 
+Inspired by [this question](http://unix.stackexchange.com/questions/83072/ls-should-display-contents-of-flat-directory-structure-in-columns).
+
 Screenshots
 -----------
 
-![Screenshot](lc_screenshot2.png "Screenshot")
-![Screenshot](lc_screenshot.png "Screenshot")
+!lc_screenshot2.png
+!lc_screenshot.png
 
-Original inspiration
---------------------
-
-http://unix.stackexchange.com/questions/83072/ls-should-display-contents-of-flat-directory-structure-in-columns
