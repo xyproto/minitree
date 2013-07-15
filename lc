@@ -1,0 +1,81 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import os
+import os.path
+
+COLUMN_WIDTH = 18
+
+def white(s):
+  return "\033[1;37;40m" + s + "\033[0m"
+
+def green(s):
+  return "\033[1;32;40m" + s + "\033[0m"
+
+def blue(s):
+  return "\033[1;34;40m" + s + "\033[0m"
+
+def gray(s):
+  return "\033[1;30;40m" + s + "\033[0m"
+
+def col(dirname):
+  column = []
+  for fn in os.listdir(dirname):
+    fullname = os.path.join(dirname, fn)
+    decoration = "" 
+    if os.path.isdir(fullname):
+      decoration = os.sep
+    elif os.access(fullname, os.X_OK):
+      decoration = "*"
+    column += ["├── " + fn + decoration]
+  if column:
+    column[-1] = '└' + column[-1][1:]
+  return column
+
+def main():
+  curdir = '.'
+  l = os.listdir(curdir)
+
+  lines = {}
+
+  colnr = 0
+  maxlen = 0
+  for dirname in l:
+    if os.path.isdir(dirname):
+      lines[colnr] = [dirname] + col(os.path.join(curdir, dirname))
+      if len(lines[colnr]) > maxlen:
+        maxlen = len(lines[colnr])
+      colnr += 1
+  maxcol = colnr - 1
+
+  colwidth = COLUMN_WIDTH
+  for linenr in range(maxlen):
+    line = ""
+    for colnr in range(maxcol):
+      if colnr in lines:
+        rows = lines[colnr]
+        if len(rows) > linenr:
+          field = rows[linenr]
+          spaces = (colwidth - len(field)) * " "
+          if len(field) >= colwidth:
+            field = field[:colwidth-4] + "... "
+          if " " in field:
+            first, second = field.split(" ", 1)
+            if second:
+              if second[0] == ".":
+                second = gray(second)
+              elif second[-1] == os.sep:
+                second = blue(second)
+              elif second[-1] == "*": 
+                second = green(second[:-1] + " ")
+            field = gray(first) + " " + second
+          line += field + spaces
+    if line.endswith("\t"):
+      line = line[:-1]
+    if linenr == 0:
+      line = white(line)
+    if line.strip():
+      print(line)
+  
+if __name__ == "__main__":
+  main()
