@@ -15,6 +15,6 @@ Inspired by [this question](http://unix.stackexchange.com/questions/83072/ls-sho
 Screenshots
 -----------
 
-![](lc_screenshot2.png)
-![](lc_screenshot.png)
+![](screenshot2.png)
+![](screenshot1.png)
 
