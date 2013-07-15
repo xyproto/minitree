@@ -4,7 +4,8 @@
 import os
 import os.path
 
-COLUMN_WIDTH = 18
+COLUMN_WIDTH = 16
+MAX_COLUMNS = 5
 
 def white(s):
   return "\033[1;37;40m" + s + "\033[0m"
@@ -20,7 +21,9 @@ def gray(s):
 
 def col(dirname):
   column = []
-  for fn in os.listdir(dirname):
+  dirnames = os.listdir(dirname)
+  dirnames.sort()
+  for fn in dirnames:
     fullname = os.path.join(dirname, fn)
     decoration = "" 
     if os.path.isdir(fullname):
@@ -32,26 +35,11 @@ def col(dirname):
     column[-1] = '└' + column[-1][1:]
   return column
 
-def main():
-  curdir = '.'
-  l = os.listdir(curdir)
-
-  lines = {}
-
-  colnr = 0
-  maxlen = 0
-  for dirname in l:
-    if os.path.isdir(dirname):
-      lines[colnr] = [dirname] + col(os.path.join(curdir, dirname))
-      if len(lines[colnr]) > maxlen:
-        maxlen = len(lines[colnr])
-      colnr += 1
-  maxcol = colnr - 1
-
+def listcolumns(maxlen, lines, colrange):
   colwidth = COLUMN_WIDTH
   for linenr in range(maxlen):
     line = ""
-    for colnr in range(maxcol):
+    for colnr in colrange:
       if colnr in lines:
         rows = lines[colnr]
         if len(rows) > linenr:
@@ -70,12 +58,41 @@ def main():
                 second = green(second[:-1] + " ")
             field = gray(first) + " " + second
           line += field + spaces
-    if line.endswith("\t"):
-      line = line[:-1]
+        else:
+          line += colwidth * " "
     if linenr == 0:
       line = white(line)
     if line.strip():
       print(line)
-  
+
+def main():
+  curdir = '.'
+  l = os.listdir(curdir)
+  l.sort()
+
+  lines = {}
+
+  colnr = 0
+  maxlen = 0
+  for dirname in l:
+    if os.path.isdir(dirname):
+      lines[colnr] = [dirname] + col(os.path.join(curdir, dirname))
+      if len(lines[colnr]) > maxlen:
+        maxlen = len(lines[colnr])
+      colnr += 1
+  maxcol = colnr - 1
+
+  if maxcol <= MAX_COLUMNS:
+    listcolumns(maxlen, lines, range(maxcol))
+  else:
+    start = 0
+    while start < maxcol:
+      stop = start + MAX_COLUMNS
+      if stop > maxcol:
+        stop = maxcol
+      listcolumns(maxlen, lines, range(start, stop))
+      print()
+      start += MAX_COLUMNS
+
 if __name__ == "__main__":
   main()

@@ -3,7 +3,7 @@ lc
 
 "Column-ls"
 
-List files in columns
+List the files in the directories in the current directory, formatted in columns
 
 Version: 0.1
 License: MIT
