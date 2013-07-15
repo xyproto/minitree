@@ -12,6 +12,8 @@ Requires Python 3
 
 Inspired by [this question](http://unix.stackexchange.com/questions/83072/ls-should-display-contents-of-flat-directory-structure-in-columns).
 
+The executable is called "lsc" instead of "lc" to avoid a naming conflict with the mono package (which provides /usr/bin/lc).
+
 Screenshots
 -----------
 
