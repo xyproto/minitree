@@ -64,7 +64,10 @@ def listcolumns(maxlen, lines, colrange):
                 second = blue(second)
               elif second[-1] == "*": 
                 second = green(second[:-1] + " ")
-            field = gray(first) + " " + second
+            if second:
+              field = gray(first) + " " + second
+            else:
+              field = first
           line += field + spaces
         else:
           line += colwidth * " "
@@ -93,14 +96,14 @@ def main():
   maxcol = colnr - 1
 
   if maxcol <= MAX_COLUMNS:
-    listcolumns(maxlen, lines, range(maxcol))
+    listcolumns(maxlen, lines, range(maxcol+1))
   else:
     start = 0
     while start < maxcol:
       stop = start + MAX_COLUMNS
       if stop > maxcol:
         stop = maxcol
-      listcolumns(maxlen, lines, range(start, stop))
+      listcolumns(maxlen, lines, range(start, stop+1))
       print()
       start += MAX_COLUMNS
 
