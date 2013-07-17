@@ -17,6 +17,6 @@ The executable may be installed as /usr/bin/lsc instead of /usr/bin/lc to avoid 
 Screenshots
 -----------
 
-![](screenshot2.png)
 ![](screenshot1.png)
+![](screenshot2.png)
 
