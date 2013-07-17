@@ -21,6 +21,10 @@ def blue(s):
   """Color text blue in a terminal."""
   return "\033[1;34m" + s + "\033[0m"
 
+def cyan(s):
+  """Color text cyan in a terminal."""
+  return "\033[1;36m" + s + "\033[0m"
+
 def gray(s):
   """Color text gray in a terminal."""
   return "\033[1;30m" + s + "\033[0m"
@@ -40,6 +44,8 @@ def col(dirname):
       decoration = os.sep
     elif os.access(fullname, os.X_OK):
       decoration = "*"
+    elif os.path.islink(fullname):
+      decoration = "@"
     column += ["├── " + fn + decoration]
   if column:
     column[-1] = '└' + column[-1][1:]
@@ -57,6 +63,7 @@ def listcolumns(maxlen, lines, colrange):
     line = ""
     for colnr in colrange:
       isdir = False
+      islink = False
       isexec = False
       if colnr in lines:
         rows = lines[colnr]
@@ -66,6 +73,8 @@ def listcolumns(maxlen, lines, colrange):
             isdir = True
           elif field.endswith("*"):
             isexec = True
+          elif field.endswith("@"):
+            islink = True
           spaces = (colwidth - len(field)) * " "
           if linenr == 0:
             if len(field) >= (colwidth-1):
@@ -83,6 +92,8 @@ def listcolumns(maxlen, lines, colrange):
                 second = blue(second)
               elif isexec:
                 second = green(second[:-1] + " ")
+              elif islink:
+                second = cyan(second)
             if second:
               field = gray(first) + " " + second
             else:
