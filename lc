@@ -56,10 +56,16 @@ def listcolumns(maxlen, lines, colrange):
   for linenr in range(maxlen):
     line = ""
     for colnr in colrange:
+      isdir = False
+      isexec = False
       if colnr in lines:
         rows = lines[colnr]
         if len(rows) > linenr:
           field = rows[linenr]
+          if field.endswith(os.sep):
+            isdir = True
+          elif field.endswith("*"):
+            isexec = True
           spaces = (colwidth - len(field)) * " "
           if linenr == 0:
             if len(field) >= (colwidth-1):
@@ -73,9 +79,9 @@ def listcolumns(maxlen, lines, colrange):
             if second:
               if second.startswith("."):
                 second = gray(second)
-              elif second.endswith(os.sep):
+              elif isdir:
                 second = blue(second)
-              elif second.endswith("*"):
+              elif isexec:
                 second = green(second[:-1] + " ")
             if second:
               field = gray(first) + " " + second
@@ -90,7 +96,7 @@ def listcolumns(maxlen, lines, colrange):
         else:
           line += colwidth * " "
     if line.strip():
-      print(line)
+      print(line.rstrip())
 
 def main():
 
