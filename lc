@@ -111,7 +111,7 @@ def main():
   maxcol = colnr - 1
 
   # List the columns by calling "listcolumns" for each range of columns.
-  if maxcol <= MAX_COLUMNS:
+  if maxcol < MAX_COLUMNS:
     listcolumns(maxlen, lines, range(maxcol+1))
   else:
     start = 0
