@@ -53,26 +53,34 @@ def listcolumns(maxlen, lines, colrange):
         if len(rows) > linenr:
           field = rows[linenr]
           spaces = (colwidth - len(field)) * " "
-          if len(field) >= colwidth:
-            field = field[:colwidth-4] + "... "
-          if " " in field:
+          if linenr == 0:
+            if len(field) >= (colwidth-1):
+              field = field[:colwidth-4] + "..."
+              spaces += " "
+          elif len(field) >= colwidth:
+            field = field[:colwidth-4] + "..."
+            spaces += " "
+          if (" " in field) and (linenr > 0):
             first, second = field.split(" ", 1)
             if second:
-              if second[0] == ".":
+              if second.startswith("."):
                 second = gray(second)
-              elif second[-1] == os.sep:
+              elif second.endswith(os.sep):
                 second = blue(second)
-              elif second[-1] == "*": 
+              elif second.endswith("*"):
                 second = green(second[:-1] + " ")
             if second:
               field = gray(first) + " " + second
             else:
               field = first
+          elif linenr == 0:
+            if field.startswith("."):
+              field = gray(field)
+            else:
+              field = white(field)
           line += field + spaces
         else:
           line += colwidth * " "
-    if linenr == 0:
-      line = white(line)
     if line.strip():
       print(line)
 
@@ -103,7 +111,7 @@ def main():
       stop = start + MAX_COLUMNS
       if stop > maxcol:
         stop = maxcol
-      listcolumns(maxlen, lines, range(start, stop+1))
+      listcolumns(maxlen, lines, range(start+1, stop+1))
       print()
       start += MAX_COLUMNS
 
