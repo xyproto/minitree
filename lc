@@ -1,10 +1,11 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function, unicode_literals
+
 import os
 import os.path
-import sys
-
+ 
 COLUMN_WIDTH = 16
 MAX_COLUMNS = 5
 
@@ -22,10 +23,6 @@ def gray(s):
 
 def red(s):
   return "\033[1;31m" + s + "\033[0m"
-
-def py3check():
-  if sys.version_info < (3, 0):
-    sys.stdout.write(red("WARNING: Use Python 3.x or later or the formatting will be all wrong!\n"))
 
 def col(dirname):
   column = []
@@ -85,8 +82,6 @@ def listcolumns(maxlen, lines, colrange):
       print(line)
 
 def main():
-  py3check()
-
   curdir = '.'
   l = os.listdir(curdir)
   l.sort()
