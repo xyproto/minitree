@@ -132,11 +132,11 @@ def main():
     listcolumns(maxlen, lines, range(maxcol+1))
   else:
     start = 0
-    while start < maxcol:
+    while start <= maxcol:
       stop = start + MAX_COLUMNS
       if stop > maxcol:
-        stop = maxcol
-      listcolumns(maxlen, lines, range(start+1, stop+1))
+        stop = maxcol + 1
+      listcolumns(maxlen, lines, range(start, stop))
       print()
       start += MAX_COLUMNS
 
