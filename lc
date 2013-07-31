@@ -51,6 +51,10 @@ def col(dirname):
     column[-1] = '└' + column[-1][1:]
   return column
 
+def utf8ify(s):
+    """Create a representation of the string that print() is willing to use"""
+    return s.encode("utf8", "replace").decode("utf8")
+
 def listcolumns(maxlen, lines, colrange):
   """
   Print one full screenwidth of columns, while shortening and coloring the
@@ -107,7 +111,7 @@ def listcolumns(maxlen, lines, colrange):
         else:
           line += colwidth * " "
     if line.strip():
-      print(line.rstrip())
+      print(utf8ify(line.rstrip()))
 
 def main():
 
