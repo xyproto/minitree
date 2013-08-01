@@ -5,6 +5,7 @@ from __future__ import print_function, unicode_literals
 
 import os
 import os.path
+from sys import exit
  
 COLUMN_WIDTH = 16
 MAX_COLUMNS = 5
@@ -126,11 +127,10 @@ def listcolumns(maxlen, lines, colrange):
     if line.strip():
       print(utf8ify(line.rstrip()))
 
-def main():
+def runlc(curdir="."):
 
   # Generate the columns by filling the dictionary named "lines"
   # by calling "col" for each directory.
-  curdir = '.'
   l = os.listdir(curdir)
   l.sort()
   lines = {}
@@ -156,6 +156,13 @@ def main():
       listcolumns(maxlen, lines, range(start, stop))
       print()
       start += MAX_COLUMNS
+
+def main():
+  try:
+    runlc(".")
+  except KeyboardInterrupt:
+    print()
+    exit(130)
 
 if __name__ == "__main__":
   main()
