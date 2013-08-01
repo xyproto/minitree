@@ -29,13 +29,21 @@ def gray(s):
   """Color text gray in a terminal."""
   return "\033[1;30m" + s + "\033[0m"
 
+def red(s):
+  """Color text red in a terminal."""
+  return "\033[1;31m" + s + "\033[0m"
+
 def col(dirname):
   """
   Generate a column of text by listing the contents of a directory.
   Returns a list with strings.
   """
   column = []
-  dirnames = os.listdir(dirname)
+  try:
+    dirnames = os.listdir(dirname)
+  except OSError:
+    return column + ['denied'] 
+
   dirnames.sort()
   for fn in dirnames:
     fullname = os.path.join(dirname, fn)
@@ -69,6 +77,7 @@ def listcolumns(maxlen, lines, colrange):
       isdir = False
       islink = False
       isexec = False
+      isdenied = False
       if colnr in lines:
         rows = lines[colnr]
         if len(rows) > linenr:
@@ -79,6 +88,8 @@ def listcolumns(maxlen, lines, colrange):
             isexec = True
           elif field.endswith("@"):
             islink = True
+          elif field == "denied":
+            isdenied = True
           spaces = (colwidth - len(field)) * " "
           if linenr == 0:
             if len(field) >= (colwidth-1):
@@ -107,6 +118,8 @@ def listcolumns(maxlen, lines, colrange):
               field = gray(field)
             else:
               field = white(field)
+          elif isdenied:
+            field = red(field)
           line += field + spaces
         else:
           line += colwidth * " "
