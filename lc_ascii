@@ -152,14 +152,14 @@ def runlc(curdir="."):
       if stop > maxcol:
         stop = maxcol + 1
       listcolumns(maxlen, lines, range(start, stop))
-      print()
+      print("\n")
       start += MAX_COLUMNS
 
 def main():
   try:
     runlc(".")
   except KeyboardInterrupt:
-    print()
+    print("\n")
     exit(130)
 
 if __name__ == "__main__":
