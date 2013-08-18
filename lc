@@ -5,7 +5,7 @@ from __future__ import print_function, unicode_literals
 
 import os
 import os.path
-from sys import exit
+from sys import exit, argv
  
 COLUMN_WIDTH = 16
 MAX_COLUMNS = 5
@@ -131,13 +131,17 @@ def runlc(curdir="."):
 
   # Generate the columns by filling the dictionary named "lines"
   # by calling "col" for each directory.
-  l = os.listdir(curdir)
+  try:
+    l = os.listdir(curdir)
+  except FileNotFoundError:
+    print(white("not found: ") + red(curdir))
+    return
   l.sort()
   lines = {}
   colnr = 0
   maxlen = 0
   for dirname in l:
-    if os.path.isdir(dirname):
+    if os.path.isdir(os.path.join(curdir, dirname)):
       lines[colnr] = [dirname] + col(os.path.join(curdir, dirname))
       if len(lines[colnr]) > maxlen:
         maxlen = len(lines[colnr])
@@ -159,7 +163,11 @@ def runlc(curdir="."):
 
 def main():
   try:
-    runlc(".")
+    if argv[1:]:
+        for dirname in argv[1:]:
+            runlc(os.path.expanduser(dirname))
+    else:
+        runlc(os.path.expanduser("."))
   except KeyboardInterrupt:
     print()
     exit(130)
