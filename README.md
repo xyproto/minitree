@@ -1,7 +1,7 @@
 fnu
 ===
 
-List the files in the directories in the current directory, formatted in columns.
+List the files in the directories in the current directory, formatted as columns.
 
 ![](screenshot1.png)
 ![](screenshot2.png)
