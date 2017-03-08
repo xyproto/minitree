@@ -3,8 +3,7 @@ lq
 
 List the files in the directories in the current directory, formatted as columns.
 
-![](screenshot1.png)
-![](screenshot2.png)
+![screenshot](screenshot.png)
 
 Inspired by [this question](http://unix.stackexchange.com/questions/83072/ls-should-display-contents-of-flat-directory-structure-in-columns).
 
