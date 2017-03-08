@@ -14,5 +14,5 @@ General info
 
 * Version: 0.3
 * License: MIT
-* Author: Alexander F Rødseth <xyproto@archlinux.org>
+* Author: Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 
