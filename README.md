@@ -4,7 +4,7 @@ List the files in the directories in the current directory, formatted as columns
 
 Screenshot from an older version:
 
-![screenshot](screenshot.png)
+![screenshot](img/screenshot.png)
 
 ### Background
 
