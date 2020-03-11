@@ -2,7 +2,7 @@
 
 List the files in the directories in the current directory, formatted as columns.
 
-Screenshot from an older version:
+Screenshot:
 
 ![screenshot](img/screenshot.png)
 
