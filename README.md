@@ -16,7 +16,7 @@ Inspired by [this question](http://unix.stackexchange.com/questions/83072/ls-sho
 
 ### General info
 
-* Version: 0.4.0
+* Version: 0.4.1
 * License: MIT
 * Author: Alexander F Rødseth &lt;xyproto@archlinux.org&gt;
 
